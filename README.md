@@ -2,9 +2,7 @@
 
 This project uses Natural Language Processing (NLP) and machine learning to analyze and classify A/B test case studies according to established behavioral science principles. It features a complete data science pipeline, from web scraping and data curation to model training and deployment as an interactive web application.
 
-This project was developed as a submission for the "Introduction to Natural Language Processing" module.
-
-**Live Demo:** [Link to your deployed Streamlit App on Netlify/Streamlit Cloud]
+**Live Demo:** https://nlp-ab-test-classifier-wyq6eqf9aoj3t8yhtovjsx.streamlit.app/
 
 ---
 
