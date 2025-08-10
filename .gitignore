@@ -1,0 +1,7 @@
+# Python
+__pycache__/
+nlp_env/
+
+# IDE / OS specific
+.vscode/
+.DS_Store
