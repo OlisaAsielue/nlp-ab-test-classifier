@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLP Project: A/B Test Classifier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Simple animation for section fade-in */
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Staggered animation delay */
+        .section-fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .section-fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .section-fade-in:nth-child(3) { animation-delay: 0.3s; }
+        .section-fade-in:nth-child(4) { animation-delay: 0.4s; }
+        .section-fade-in:nth-child(5) { animation-delay: 0.5s; }
+        .section-fade-in:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-700">
+
+    <div class="max-w-4xl mx-auto p-4 sm:p-8 md:p-12">
+
+        <!-- Header Section -->
+        <header class="text-center mb-12 section-fade-in">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 mb-2">The Persuasive Psychology of A/B Testing</h1>
+            <p class="text-lg md:text-xl text-sky-600 font-medium">A Proof-of-Concept Classifier</p>
+        </header>
+
+        <!-- Main Content Wrapper -->
+        <main class="space-y-12">
+
+            <!-- Introduction Section -->
+            <section class="bg-white p-8 rounded-xl shadow-sm section-fade-in">
+                <h2 class="text-2xl font-bold text-slate-800 mb-4 border-b pb-2 border-slate-200">Introduction: The Problem of the Black Box</h2>
+                <div class="space-y-4 text-base leading-relaxed">
+                    <p>In the field of Human-Computer Interaction (HCI), it is well-established that user engagement is not merely a function of usability, but instead from a complex interplay of design, context, and user psychology. A/B testing is the primary tool used by industry to navigate this complexity, allowing practitioners to empirically test how minor changes to a user interface can influence user behaviour.</p>
+                    <p>However, the insights from these tests are often siloed and anecdotal. While a company might know that changing a button's text from "Sign Up" to "Get Started" increased conversions, the underlying psychological principle driving that change is often not systematically analysed. This project aims to addresses this "black box" problem. The central research question is: Can we use Natural Language Processing (NLP) to analyse the text of A/B test case studies and automatically classify them according to established behavioral science principles?</p>
+                    <p>The goal is to move beyond simple outcomes (e.g., a 20% uplift) and create a system that can identify the persuasive strategies at play, such as the use of Social Proof, Urgency, or Clarity. This project aims to develop a proof of concept for such a system, demonstrating a methodology for applying a behavioral science framework to real world, unstructured marketing text.</p>
+                </div>
+            </section>
+
+            <!-- My Process Section -->
+            <section class="bg-white p-8 rounded-xl shadow-sm section-fade-in">
+                <h2 class="text-2xl font-bold text-slate-800 mb-4 border-b pb-2 border-slate-200">My Process: Finding Quality in a Sea of Data</h2>
+                <div class="space-y-4 text-base leading-relaxed">
+                    <p>To answer my research question, I followed a step-by-step process, beginning with data collection and ending with the creation of a predictive model. However, an important part of this project was adapting my plan when I discovered that the initial data quality wasn't good enough for the task.</p>
+                    <h3 class="text-lg font-semibold text-slate-700 pt-2">Stage 1: Collecting the Raw Data</h3>
+                    <p>First, I needed to gather a corpus to analyse. I built a custom Python scraper to automatically gather over 200 A/B test case studies from the website vwo.com. I discovered that the website loaded its content dynamically, so my scraper was designed to interact with the site's hidden API. This allowed me to efficiently collect the summary text for every case study.</p>
+                    <h3 class="text-lg font-semibold text-slate-700 pt-2">Stage 2: Discovering the Data Quality Problem</h3>
+                    <p>With my initial dataset of 232 articles, I began the analysis. However, after manually reading some samples of the articles, I identified a critical problem: most of the texts were vague summaries. They would state a successful outcome (e.g., "we increased sales by 20%") but leave out the crucial details of what was actually tested. This meant that over 60% of my data was unusable for my original goal of classifying the specific psychological techniques used.</p>
+                    <h3 class="text-lg font-semibold text-slate-700 pt-2">Stage 3: A Pivot to a "Gold Standard" Corpus</h3>
+                    <p>This discovery prompted a change in strategy. Instead of working with a large, low-quality dataset, I decided to create a smaller, high-quality one. This pivot was inspired by my previous research experience, where isolating specific design elements in a controlled way proved more insightful.</p>
+                    <p>To do this, I built a ‘feasibility scorer’. A script that read all 232 articles and gave each one a ‘detail score’ based on how many keywords related to specific test details (like variation, control, headline, button) it contained. This allowed me to rank every article from most to least promising. I then took the top 50 highest-scoring articles and re-scraped their full text to create my final 50-item "gold standard" corpus. While this dataset is smaller, it is far more relevant and suitable for a detailed pilot study.</p>
+                    <h3 class="text-lg font-semibold text-slate-700 pt-2">Stage 4: Teaching the Machine</h3>
+                    <p>With my higher quality corpus ready, I manually labeled each of the 50 articles according to a schema of eight behavioral principles (see LABELLING_GUIDE.md). This labeled data became the ‘answer key’ for training my machine learning model.</p>
+                    <p>To teach the computer, I first had to convert the text into a numerical format it could understand. I used a standard technique called TF-IDF, which measures how important a word is to a document. Finally, I trained a Linear Support Vector Classifier. This is a powerful and reliable algorithm for text classification on 80% of my data. The remaining 20% was held back to test how well the model had learned.</p>
+                </div>
+            </section>
+            
+            <!-- The Application Section -->
+            <section class="bg-white p-8 rounded-xl shadow-sm section-fade-in">
+                <h2 class="text-2xl font-bold text-slate-800 mb-4 border-b pb-2 border-slate-200">The Application: The Behavioural Design Explorer</h2>
+                <div class="space-y-4 text-base leading-relaxed">
+                    <p>I built a simple web application that demonstrates the model's capabilities. The Behavioural Design Explorer is a tool where a user can paste in a piece of text describing an A/B test, and the application will use the trained model to predict which behavioral principle it represents.</p>
+                    <p>This application serves two key purposes:</p>
+                    <ol class="list-decimal list-inside space-y-2 pl-2">
+                        <li>It provides a live, interactive demonstration of the project's outcome, making the results accessible to anyone, regardless of their technical background.</li>
+                        <li>It acts as a prototype for a real-world tool that could eventually help marketing teams or designers think more critically about the persuasive strategies they use in their work.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Findings Section -->
+            <section class="bg-white p-8 rounded-xl shadow-sm section-fade-in">
+                <h2 class="text-2xl font-bold text-slate-800 mb-4 border-b pb-2 border-slate-200">Findings & What They Mean</h2>
+                <div class="space-y-4 text-base leading-relaxed">
+                    <p>While the model achieved a promising headline accuracy of 78%, this single metric can be misleading, especially with an imbalanced dataset. A deeper analysis of the model's performance reveals a more nuanced story.</p>
+                    <p>The detailed classification report shows that the model's strength lies in identifying the most common category, Layout/Design Change. For this class, it achieved a high precision of 0.80 (meaning when it predicted this label, it was correct 80% of the time) and a perfect recall of 1.00 (meaning it successfully found all true instances of this label in the test set).</p>
+                    <p>However, the report also highlights the central challenge of this pilot study: data sparsity. For rare categories with only one or two examples in the test set, such as Media Change, the model failed to make any correct predictions, resulting in a precision and recall of 0.00. This is not a failure of the algorithm itself, but rather a direct consequence of the limited training data for these specific classes. The perfect scores for categories like Friction Reduction are encouraging, but must be interpreted with caution as they are based on only a single test instance.</p>
+                    <p>The confusion matrix visualizes this behavior clearly. The model's primary error was misclassifying one true Media Change case as a Layout/Design Change, likely because the text contained overlapping keywords related to visual elements. Ultimately, the most important finding is not a single accuracy score, but the successful validation of the overall methodology. The analysis proves that the model can effectively learn the patterns of well-represented classes and clearly identifies which specific categories require more data to improve performance.</p>
+                    
+                    <!-- Graph Embeds -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6">
+                        <div class="bg-slate-50 p-4 rounded-lg border">
+                            <h3 class="text-center font-semibold text-slate-700 mb-2">Distribution of Word Counts</h3>
+                            <img src="word_count.png" alt="Histogram showing the distribution of word counts in the case studies." class="rounded-md shadow-md w-full">
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-lg border">
+                            <h3 class="text-center font-semibold text-slate-700 mb-2">Top 25 Most Common Words</h3>
+                            <img src="top25.png" alt="Bar chart showing the top 25 most common words." class="rounded-md shadow-md w-full">
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border mt-8">
+                        <h3 class="text-center font-semibold text-slate-700 mb-2">Model Performance: Confusion Matrix</h3>
+                        <img src="matrix.png" alt="Confusion matrix showing the model's prediction accuracy for each category." class="rounded-md shadow-md w-full mx-auto">
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Reflection Section -->
+            <section class="bg-white p-8 rounded-xl shadow-sm section-fade-in">
+                <h2 class="text-2xl font-bold text-slate-800 mb-4 border-b pb-2 border-slate-200">Critical Reflection & Next Steps</h2>
+                <div class="space-y-4 text-base leading-relaxed">
+                    <p>This project was a powerful lesson in the realities of NLP and data science. The initial plan to use a large dataset was held up by a real world data quality issue. The necessary pivot to a smaller, more curated corpus was a crucial decision that ultimately made the project more rigorous and insightful. It highlights a fundamental truth: the most advanced model cannot make up for poor quality data.</p>
+                    <p>The main limitation of this study is, by design, the small size of the final dataset. The model should be seen as a successful proof of concept, not a production ready tool.</p>
+                    <p>The clear path for future work is to apply the methodology developed here at a larger scale. This would involve using the feasibility scorer to find hundreds of high-quality case studies from multiple websites/ forums and then a larger labeling effort. This would provide enough data to train a more robust and accurate model, moving this project from a successful pilot study to a tool with real world diagnostic power.</p>
+                </div>
+            </section>
+            
+            <!-- Links Section -->
+            <section class="text-center mt-16 section-fade-in">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">Explore the Project</h2>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="https://nlp-ab-test-classifier-wyq6eqf9aoj3t8yhtovjsx.streamlit.app/" target="_blank" class="bg-sky-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-sky-700 transition-colors duration-300 shadow-md">
+                        Launch the Live App
+                    </a>
+                    <a href="https://github.com/OlisaAsielue/nlp-ab-test-classifier.git" target="_blank" class="bg-slate-800 text-white font-bold py-3 px-6 rounded-lg hover:bg-slate-900 transition-colors duration-300 shadow-md">
+                        View on GitHub
+                    </a>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center mt-16 pt-8 border-t border-slate-200">
+            <p class="text-sm text-slate-500">&copy; 2025 - NLP Project Submission</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
