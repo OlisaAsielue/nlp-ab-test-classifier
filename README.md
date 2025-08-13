@@ -44,6 +44,8 @@ The project followed a rigorous, multi-stage methodology that adapted to real-wo
 ├── requirements.txt        # All Python dependencies for the project
 └── README.md               # This file
 
+```
+
 ---
 
 ---
