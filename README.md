@@ -29,6 +29,8 @@ The project followed a rigorous, multi-stage methodology that adapted to real-wo
 
 ## Repository Structure
 
+```
+.
 ├── app.py                  # The Streamlit web application
 ├── eda.ipynb               # Jupyter Notebook with EDA, model training, and evaluation
 ├── orchestrator.py         # Main script to run the full scraping pipeline
@@ -41,10 +43,6 @@ The project followed a rigorous, multi-stage methodology that adapted to real-wo
 ├── LABELLING_GUIDE.md      # Documentation for the manual labeling schema
 ├── requirements.txt        # All Python dependencies for the project
 └── README.md               # This file
-
-    Website - Portfolio piece
-
----
 
 ---
 
